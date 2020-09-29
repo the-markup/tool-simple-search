@@ -1,20 +1,23 @@
+// Make Markup Label
+const markupLabel = document.createElement('p');
+markupLabel.classList.add('ss-label');
+markupLabel.innerHTML = 'Results cleaned up by <a class="ss-label__link" href="https://themarkup.org" target="_blank">The Markup</a>';
+
 // Make close button
-var clear = document.getElementsByClassName('clear-button')[0];
-const closeButton = clear.cloneNode(true);
-console.log(closeButton);
-closeButton.removeAttribute('jsaction');
-closeButton.removeAttribute('jscontroller');
-closeButton.removeAttribute('jsname');
-closeButton.removeAttribute('data-ved');
-closeButton.setAttribute('aria-label', ' Close');
-closeButton.id = '_ss_closebtn';
-closeButton.onclick = "document.getElementById('_ss_header').style.display = 'none';";
+const closeButton = document.createElement('div');
+closeButton.classList.add('ss-close');
+closeButton.innerHTML = '<p class="ss-close__label">View Original Results</p><svg version="1.1" class="ss-close__button" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 1024 1024" xml:space="preserve"><path d="M91.6 91.6l840.8 840.8M932.4 91.6L91.6 932.4"/></svg>';
+closeButton.addEventListener('click', function(e) {
+	console.log('clicked');
+
+	// Figure out how Maddy swapped out simple results for old ones
+});
 
 // Make header
 const controls = document.createElement('div');
-controls.id = '_ss_header';
+controls.classList.add('ss-header');
+controls.appendChild(markupLabel);
 controls.appendChild(closeButton);
-controls.appendChild(document.createTextNode('Simple Search'));
 
 // Make results box
 const results = document.createElement('div');
@@ -35,6 +38,7 @@ viewbox.appendChild(explanation);
 const blur = document.createElement('blur');
 
 function showPopup() {
+	console.log('show popup');
 	var y = document.getElementsByClassName("rc");
 	if (y.length > 0) {
 		//document.scrollingElement.scrollTop = 0;
@@ -71,18 +75,6 @@ function showPopup() {
 		document.getElementById('bres').style.display = 'none';
 		document.getElementById('brs').style.display = 'none';
 		//document.body.style.overflow = 'hidden';
-
-		// add listener for control buttons
-		window.addEventListener("click", function(e) {
-			if (e.target.id != closeButton.id) {
-				return;
-			}
-    		document.getElementById(viewbox.id).style.display = 'none';
-    		document.getElementById('rhs').style.display = '';
-			document.getElementById('res').style.display = '';
-			document.getElementById('bres').style.display = '';
-			document.getElementById('brs').style.display = '';
-		});
 	}
 }
 
