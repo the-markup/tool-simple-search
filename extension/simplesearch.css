@@ -1,13 +1,68 @@
-#_ss_closebtn {
-	float:right;
+.ss-header {
+	display: flex;
+	justify-content: space-between;
+	padding: 15px;
 }
 
-#_ss_header {
-	width:100%;
+.ss-label {
+	font-size: 14px;
+	color: #70757a;
+	margin: 0;
+}
+
+.ss-label__link {
+	color: #ff335f;
+	font-weight: bold;
+	transition: color 0.2s linear;
+}
+
+.ss-label__link:visited {
+	color: #ff335f;
+}
+
+.ss-label__link:hover {
+	color: #242a49;
+	text-decoration: none;
+}
+
+.ss-close {
+	display: flex;
+	align-items: center;
+}
+
+.ss-close:hover {
+	cursor: pointer;
+}
+
+.ss-close:hover .ss-close__button {
+	stroke: #242a49;
+}
+
+.ss-close:hover .ss-close__label {
+	color: #242a49;
+}
+
+.ss-close__label {
+	font-weight: bold;
+	font-size: 14px;
+	color: #377fec;
+	margin: 0 10px 0 0;
+	transition: color 0.2s linear;
+}
+
+.ss-close__button {
+	display: inline;
+	width: 20px;
+	height: 20px;
+	fill:none;
+	stroke:#377fec;
+	stroke-width:120;
+	stroke-miterlimit:10;
+	transition: stroke 0.2s linear;
 }
 
 #_ss_box {
-	border: 1px solid grey;
+	border: 1px solid #cac7c3;
 	background: #FFF;
 }
 
