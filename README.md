@@ -6,4 +6,4 @@ To read more about the tool, please refer to our post, "[TK]()."
 
 ## Installation
 
-This extension is available to download for free in both the Firefox and Chrome stores.
+This free extension is available for both the [Firefox]() and [Chrome]() browser.
