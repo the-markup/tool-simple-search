@@ -28,7 +28,7 @@ results.id = '_ss_results';
 
 const explanation = document.createElement('div');
 explanation.id = "_ss_explanation";
-explanation.innerText = "Get back to the good old days where you just had ten blue links. This is by The Markup, a very cool non-profit news site. Like this? DONATE."
+explanation.innerText = "TK"
 results.appendChild(explanation);
 
 // Make modal box
