@@ -1,7 +1,7 @@
 // Make Markup Label
 const markupLabel = document.createElement('p');
 markupLabel.classList.add('ss-label');
-markupLabel.innerHTML = 'Results cleaned up by <a class="ss-label__link" href="https://themarkup.org" target="_blank">The Markup</a>';
+markupLabel.innerHTML = 'TKTKTKTK by <a class="ss-label__link" href="https://themarkup.org" target="_blank">The Markup</a>';
 
 // Make close button
 const closeButton = document.createElement('div');
@@ -19,7 +19,7 @@ controls.appendChild(closeButton);
 
 // Make results box
 const results = document.createElement('div');
-results.classList.add('ss_results');
+results.classList.add('ss-results');
 
 // Make footer
 const explanation = document.createElement('div');
@@ -33,6 +33,11 @@ viewbox.appendChild(controls);
 viewbox.appendChild(results);
 viewbox.appendChild(explanation);
 
+// Make blur box 
+const blurbox = document.createElement('div');
+blurbox.classList.add('ss-blurbox');
+blurbox.appendChild(viewbox);
+
 function showPopup() {
 	// Get Page Results
 	//var whereAmI = window.location.hostname;
@@ -44,7 +49,7 @@ function showPopup() {
 	
 			if (googleResults.length > 0) {
 				// Add placeholder for results if we've found results
-				document.querySelector('body').prepend(viewbox);
+				document.querySelector('body').prepend(blurbox);
 	
 				// Populate new results with those clean results
 				googleResults.forEach(function(result, i) {
