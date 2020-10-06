@@ -3,6 +3,18 @@
 	background: #FFF;
 	width: calc(100% + 30px);
 	margin-left: -15px;
+	z-index: 2147483646;
+	max-height: 800px;
+	max-width: 600px;
+	height: 80%;
+
+	left: 50%;
+    top: 50%;
+    position: fixed;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    -moz-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
+
 	display: none;
 }
 
@@ -127,10 +139,20 @@
 	text-decoration: none;
 }
 
+.ss--has-results {
+	overflow: hidden;
+}
+/*	-webkit-filter: blur(5px);
+  	-moz-filter: blur(5px);
+  	-o-filter: blur(5px);
+  	-ms-filter: blur(5px);
+  	filter: blur(5px); 
+}*/
+
 /* Google Page Alterations */
-.ss--has-results #rhs,
+/*.ss--has-results #rhs,
 .ss--has-results #res,
 .ss--has-results #bres,
 .ss--has-results #brs {
 	display: none;
-}
+}*/
