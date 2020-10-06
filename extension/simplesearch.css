@@ -19,13 +19,30 @@
 }
 
 .ss--has-results .ss-box {
+	display: flex;
+	flex-direction: column;
+}
+
+.ss-blurbox {
+	display: none;
+	width: 100%;
+	height: 100%;
+	z-index: 2147483645;
+	background: rgba(0,0,0,0.5);
+	position: fixed;
+	left: 0;
+	top: 0;
+
+}
+
+.ss--has-results .ss-blurbox {
 	display: block;
 }
 
 .ss-header {
 	display: flex;
 	justify-content: space-between;
-	padding: 15px 15px 0px;
+	padding: 15px 15px 10px;
 }
 
 .ss-label {
@@ -83,6 +100,11 @@
 	stroke-width:150;
 	stroke-miterlimit:10;
 	transition: stroke 0.2s linear;
+}
+
+.ss-results {
+	overflow: auto;
+	flex-grow: 1;
 }
 
 .ss-result {
