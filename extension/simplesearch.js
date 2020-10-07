@@ -1,7 +1,7 @@
 // Make Markup Label
 const markupLabel = document.createElement('p');
 markupLabel.classList.add('ss-label');
-markupLabel.innerHTML = 'TKTKTKTK by <a class="ss-label__link" href="https://themarkup.org" target="_blank">The Markup</a>';
+markupLabel.innerHTML = 'Simple Search by <a class="ss-label__link" href="https://themarkup.org" target="_blank">The Markup</a>';
 
 // Make close button
 const closeButton = document.createElement('div');
@@ -70,27 +70,29 @@ function showPopup() {
 				document.querySelector('html').classList.add('ss--has-results');
 			}
 		} else if (whereAmI.includes('bing')) {
-			const bingResults = document.querySelectorAll('.b_algo');
+			const bingResults = document.querySelectorAll('li.b_algo');
 
 			if (bingResults.length > 0) {
-				document.querySelector('#b_results').prepend(viewbox);
+				document.querySelector('body').prepend(blurbox);
 		
 				bingResults.forEach(function (result, i) {
-					console.log(result);
-					const linkEl = result.querySelector('h2 > a');
-					const url = linkEl.href;
-					const rel = linkEl.rel;
-					const title = linkEl.innerHTML;
-					const desc = result.querySelector('p');
-					const cite = result.querySelector('cite');
-		
-					if (desc && cite) {
-						results.innerHTML += '<div class="ss-result">' + '<a href="' + url + '" rel="' + rel + '" class="ss-result__link">' + title + '</a>' + '<h4 class="ss-result__cite">' + cite.innerText + '</h4>' + '<p class="ss-result__description">' + desc.innerHTML + '</p></div>';
+					const resultTitle = result.querySelector('h2 > a');
+					const resultHref = resultTitle.href;
+					const resultH = resultTitle.h;
+					const resultDesc = result.querySelector('p');
+					const resultCite = result.querySelector('cite');
+
+					if (resultTitle && resultDesc && resultCite) {
+						results.innerHTML += '<div class="ss-result">' + 
+							'<a href="' + resultHref + '" h="' + resultH + '" class="ss-result__link">' + resultTitle.innerText + '</a>' + 
+							'<h4 class="ss-result__cite">' + resultCite.innerText + '</h4>' + 
+							'<p class="ss-result__description">' + resultDesc.innerText + '</p>' + 
+							'</div>';
 					}
 				});
-		
-				document.querySelector('html').classList.add('ss--has-results');
 
+				document.querySelector('html').classList.add('ss--has-results');
+    			
 			}
 		}
 	/*} else if whereAmI.includes('bing') {
@@ -98,3 +100,7 @@ function showPopup() {
 }
 
 showPopup();
+
+/*document.addEventListener("DOMContentLoaded", function(event) {
+    showPopup();
+  });*/
