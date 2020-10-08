@@ -209,3 +209,9 @@
 	padding: 15px;
 	margin-bottom: 15px;
 }
+
+.ss--has-results .ss-box .b_pag {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
