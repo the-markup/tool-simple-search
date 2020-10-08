@@ -1,95 +1,158 @@
+// Make Markup Label
+const markupLabel = document.createElement('p');
+markupLabel.classList.add('ss-label');
+markupLabel.innerHTML = 'Simple Search by <a class="ss-label__link" href="https://themarkup.org" target="_blank">The Markup</a>';
+
 // Make close button
-const closeButton = document.createElement('button');
-closeButton.id = '_ss_closebtn';
-closeButton.onclick = "document.getElementById('_ss_header').style.display = 'none';";
-closeButton.textContent = 'close';
+const closeButton = document.createElement('div');
+closeButton.classList.add('ss-close');
+closeButton.innerHTML = '<p class="ss-close__label">View Original Results</p><svg version="1.1" class="ss-close__button" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 1024 1024" xml:space="preserve"><path d="M91.6 91.6l840.8 840.8M932.4 91.6L91.6 932.4"/></svg>';
+closeButton.addEventListener('click', function() {
+	closeSimpleSearch();
+});
 
 // Make header
 const controls = document.createElement('div');
-controls.id = '_ss_header';
-controls.appendChild(closeButton)
-controls.appendChild(document.createTextNode('Simple Search'));
-//controls.style.position = "fixed";
-//controls.style.top = '0';
-//controls.style.width = '100%';
-//controls.style.height = '2em';
-//controls.style.background = "#FF0";
-//controls.style.border = '1px solid red';
+controls.classList.add('ss-header');
+controls.appendChild(markupLabel);
+controls.appendChild(closeButton);
 
 // Make results box
 const results = document.createElement('div');
-results.id = '_ss_results';
-//results.style.padding = "1em";
-//results.style.border = "1px solid blue";
-//results.style.paddingTop = '2em';
-//results.style.maxWidth = '800px';
-//results.style.maxHeight = '540px';
-//results.style.overflow = "auto";
+results.classList.add('ss-results');
 
+// Make footer
 const explanation = document.createElement('div');
-explanation.id = "_ss_explanation";
-explanation.innerText = "TK"
-results.appendChild(explanation);
+explanation.classList.add('ss-footer');
+explanation.innerHTML = '<h3 class="ss-footer__title">TK TK TK</h3><p class="ss-footer__description">TK TKTKTKTKTKTKTTKTK TK TK <a class="ss-footer__link" target="_blank" href="https://themarkup.org">themarkup.org</a></p>';
 
-// Make modal box
+
+// Make box
 const viewbox = document.createElement('div');
-viewbox.id = '_ss_box';
+viewbox.classList.add('ss-box');
 viewbox.appendChild(controls);
 viewbox.appendChild(results);
+viewbox.appendChild(explanation);
 
-const blur = document.createElement('blur');
-
-//viewbox.style.zIndex = "2147483647";
-//viewbox.style.position = 'fixed';
-//viewbox.style.border = "5px solid red";
-//viewbox.style.background = "#FFF";
-//viewbox.style.maxWidth = '800px';
-//viewbox.style.maxHeight = '600px';
-//viewbox.style.overflow = "hidden";
+// Make blur box 
+const blurbox = document.createElement('div');
+blurbox.classList.add('ss-blurbox');
+blurbox.appendChild(viewbox);
+blurbox.addEventListener('click', function(e) {
+	if (e.target.classList.contains('ss-blurbox')) {
+		closeSimpleSearch();
+	}
+});
 
 function showPopup() {
-	var y = document.getElementsByClassName("rc");
-	if (y.length > 0) {
-		document.scrollingElement.scrollTop = 0;
+	const whereAmI = window.location.hostname;
 
-		document.body.insertBefore(viewbox, document.body.firstChild);
+	if (whereAmI.includes('google')) {
+		const googleResults = document.querySelectorAll('.rc');
 
-		for (var i = 0; i < y.length; i++) {
-  			var ttl = y[i].getElementsByClassName('r')[0].getElementsByTagName('a')[0];
-  			var link = ttl.href;
-  			var rel = ttl.rel;
-  			var cont = ttl.getElementsByTagName('h3')[0].innerText;
+		if (googleResults.length > 0) {
+			// Populate new results with those clean results
+			googleResults.forEach(function(result, i) {
+				console.log(result);
+				const linkEl = result.querySelector('a');
+				const url = linkEl.href;
+				const rel = linkEl.rel;
+				const title = result.querySelector('h3').innerHTML;
+				const desc = result.querySelector('div > div > span > span:last-of-type');
+				const cite = result.querySelector('cite');
 
-  			var title = "<a href='" + link + "' rel='" + rel + "'><h3>" + cont + "</h3></a>";
-  			var desc = y[i].getElementsByClassName('st')[0].innerHTML;
+				if (desc && cite) {
+					results.innerHTML += '<div class="ss-result"><h4 class="ss-result__cite">' + cite.innerText + '</h4><a href="' + url + '" rel="' + rel + '" class="ss-result__link">' + title + '</a><p class="ss-result__description">' + desc.innerHTML + '</p></div>';
+				}
+			});
 
-  			var cite = y[i].getElementsByTagName('cite')[0].innerText;
-  			
-
-  			if (cont != "" && desc != "") {
-  				results.innerHTML += "<div class='ss_result' style='border:1px solid green; margin-bottom:.5em;'>" + 
-  				"<sub>" + cite + "</sub><br/>" + title + "<br/>" + desc + "<br/></div>";
-  			}
-  		} 
-	
-		// Position modal window
-		viewbox.style.left = "50%";
-		viewbox.style.top = "50%";
-		viewbox.style.transform = "translate(-50%, -50%)";
-
-		// blur the results
-		document.getElementById('rcnt').style.filter = 'blur(5px)';
-		document.body.style.overflow = 'hidden';
-
-		// add listener for control buttons
-		window.addEventListener("click", function(e) {
-			if (e.target.id != closeButton.id) {
-				return;
+			// Get page navigation and add to the box
+			if (document.querySelector('#foot h1')) {
+				const navigation = document.querySelector('#foot');
+				const clonedNavigation = navigation.cloneNode(true);
+				results.append(clonedNavigation);
 			}
-    		document.getElementById(viewbox.id).style.display = 'none';
-    		document.getElementById('rcnt').style.filter = '';
-    		document.body.style.overflow = '';
-		});
+
+			// Add placeholder for results if we've found results
+			document.querySelector('#rcnt').prepend(blurbox);
+
+			// Get Google Height
+			const googleResultsHeight = document.querySelector('#rcnt').clientHeight;
+
+			// Set a class to make it all visible
+			document.querySelector('html').classList.add('ss--has-results', 'ss--is-google');
+
+			// Get Simple Height
+			const simpleSearchHeight = viewbox.clientHeight;
+
+			// Cut off original results to stop the page from being super long
+			document.querySelector('#rcnt').style.height = (simpleSearchHeight + 100) + 'px';
+
+			document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (googleResultsHeight - simpleSearchHeight) + ' pixels TK TK TK';
+		} else {
+			document.querySelector('html').classList.add('ss--no-results');
+		}
+	} else if (whereAmI.includes('bing')) {
+		const bingResults = document.querySelectorAll('li.b_algo');
+
+		if (bingResults.length > 0) {
+			document.querySelector('body').prepend(blurbox);
+
+			bingResults.forEach(function (result, i) {
+				const resultTitle = result.querySelector('h2 > a');
+				const resultHref = resultTitle.href;
+				const resultH = resultTitle.h;
+				const resultDesc = result.querySelector('p');
+				const resultCite = result.querySelector('cite');
+
+				if (resultTitle && resultDesc && resultCite) {
+					results.innerHTML += '<div class="ss-result">' + 
+						'<a href="' + resultHref + '" h="' + resultH + '" class="ss-result__link">' + resultTitle.innerText + '</a>' + 
+						'<h4 class="ss-result__cite">' + resultCite.innerText + '</h4>' + 
+						'<p class="ss-result__description">' + resultDesc.innerText + '</p>' + 
+						'</div>';
+				}
+			});
+
+			// Get page navigation and add to the box
+			if (document.querySelector('.b_pag')) {
+				const navigation = document.querySelector('.b_pag');
+				const clonedNavigation = navigation.cloneNode(true);
+				results.append(clonedNavigation);
+			}
+
+			// Add placeholder for results if we've found results
+			document.querySelector('#b_content').prepend(blurbox);
+
+			// Get Google Height
+			const googleResultsHeight = document.querySelector('#b_content').clientHeight;
+
+			// Set a class to make it all visible
+			document.querySelector('html').classList.add('ss--has-results', 'ss--is-bing');
+
+			// Get Simple Height
+			const simpleSearchHeight = viewbox.clientHeight;
+
+			// Cut off original results to stop the page from being super long
+			document.querySelector('#b_content').style.height = (simpleSearchHeight + 100) + 'px';
+
+			document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (googleResultsHeight - simpleSearchHeight) + ' pixels TK TK TK';
+		} else {
+			document.querySelector('html').classList.add('ss--no-results');
+		}
+	}
+}
+
+function closeSimpleSearch() {
+	document.querySelector('html').classList.remove('ss--has-results');
+	document.querySelector('html').classList.add('ss--no-results');
+
+	if (document.querySelector('#rcnt')) {
+		document.querySelector('#rcnt').style.height = 'auto';
+	}
+
+	if (document.querySelector('#b_content')) {
+		document.querySelector('#b_content').style.height = 'auto';
 	}
 }
 
