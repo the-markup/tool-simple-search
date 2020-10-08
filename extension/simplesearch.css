@@ -181,3 +181,19 @@
 .ss--no-results #rcnt {
 	opacity: 1;
 }
+
+/* Bing Page Alterations */
+#b_content {
+	position: relative;
+	opacity: 0;
+	transition: opacity 0.3s linear;
+}
+
+.ss--has-results #b_content {
+	overflow: hidden;
+	opacity: 1;
+}
+
+.ss--no-results #b_content {
+	opacity: 1;
+}

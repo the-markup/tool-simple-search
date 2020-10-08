@@ -44,82 +44,102 @@ blurbox.addEventListener('click', function(e) {
 });
 
 function showPopup() {
-	// Get Page Results
-	//var whereAmI = window.location.hostname;
-	//alert(whereAmI);
-	//if whereAmI.includes('google') {
-		var whereAmI = window.location.hostname;
-		if (whereAmI.includes('google')) {
-			const googleResults = document.querySelectorAll('.rc');
+	const whereAmI = window.location.hostname;
 
-			if (googleResults.length > 0) {
-				// Populate new results with those clean results
-				googleResults.forEach(function(result, i) {
-					console.log(result);
-					const linkEl = result.querySelector('a');
-					const url = linkEl.href;
-					const rel = linkEl.rel;
-					const title = result.querySelector('h3').innerHTML;
-					const desc = result.querySelector('div > div > span > span:last-of-type');
-					const cite = result.querySelector('cite');
-	
-					if (desc && cite) {
-						results.innerHTML += '<div class="ss-result"><h4 class="ss-result__cite">' + cite.innerText + '</h4><a href="' + url + '" rel="' + rel + '" class="ss-result__link">' + title + '</a><p class="ss-result__description">' + desc.innerHTML + '</p></div>';
-					}
-				});
+	if (whereAmI.includes('google')) {
+		const googleResults = document.querySelectorAll('.rc');
 
-				// Get page navigation and add to the box
-				if (document.querySelector('#foot h1')) {
-					const navigation = document.querySelector('#foot');
-					results.append(navigation);
+		if (googleResults.length > 0) {
+			// Populate new results with those clean results
+			googleResults.forEach(function(result, i) {
+				console.log(result);
+				const linkEl = result.querySelector('a');
+				const url = linkEl.href;
+				const rel = linkEl.rel;
+				const title = result.querySelector('h3').innerHTML;
+				const desc = result.querySelector('div > div > span > span:last-of-type');
+				const cite = result.querySelector('cite');
+
+				if (desc && cite) {
+					results.innerHTML += '<div class="ss-result"><h4 class="ss-result__cite">' + cite.innerText + '</h4><a href="' + url + '" rel="' + rel + '" class="ss-result__link">' + title + '</a><p class="ss-result__description">' + desc.innerHTML + '</p></div>';
 				}
+			});
 
-				// Add placeholder for results if we've found results
-				document.querySelector('#rcnt').prepend(blurbox);
-
-				// Get Google Height
-				const googleResultsHeight = document.querySelector('#rcnt').clientHeight;
-
-				// Set a class to make it all visible
-				document.querySelector('html').classList.add('ss--has-results');
-
-				// Get Simple Height
-				const simpleSearchHeight = viewbox.clientHeight;
-
-				// Cut off original results to stop the page from being super long
-				document.querySelector('#rcnt').style.height = (simpleSearchHeight + 100) + 'px';
-
-				document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (googleResultsHeight - simpleSearchHeight) + ' pixels TK TK TK';
-			} else {
-				document.querySelector('html').classList.add('ss--no-results');
+			// Get page navigation and add to the box
+			if (document.querySelector('#foot h1')) {
+				const navigation = document.querySelector('#foot');
+				const clonedNavigation = navigation.cloneNode(true);
+				results.append(clonedNavigation);
 			}
-		} else if (whereAmI.includes('bing')) {
-			const bingResults = document.querySelectorAll('li.b_algo');
 
-			if (bingResults.length > 0) {
-				document.querySelector('body').prepend(blurbox);
+			// Add placeholder for results if we've found results
+			document.querySelector('#rcnt').prepend(blurbox);
 
-				bingResults.forEach(function (result, i) {
-					const resultTitle = result.querySelector('h2 > a');
-					const resultHref = resultTitle.href;
-					const resultH = resultTitle.h;
-					const resultDesc = result.querySelector('p');
-					const resultCite = result.querySelector('cite');
+			// Get Google Height
+			const googleResultsHeight = document.querySelector('#rcnt').clientHeight;
 
-					if (resultTitle && resultDesc && resultCite) {
-						results.innerHTML += '<div class="ss-result">' + 
-							'<a href="' + resultHref + '" h="' + resultH + '" class="ss-result__link">' + resultTitle.innerText + '</a>' + 
-							'<h4 class="ss-result__cite">' + resultCite.innerText + '</h4>' + 
-							'<p class="ss-result__description">' + resultDesc.innerText + '</p>' + 
-							'</div>';
-					}
-				});
+			// Set a class to make it all visible
+			document.querySelector('html').classList.add('ss--has-results');
 
-				document.querySelector('html').classList.add('ss--has-results');
-			}
+			// Get Simple Height
+			const simpleSearchHeight = viewbox.clientHeight;
+
+			// Cut off original results to stop the page from being super long
+			document.querySelector('#rcnt').style.height = (simpleSearchHeight + 100) + 'px';
+
+			document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (googleResultsHeight - simpleSearchHeight) + ' pixels TK TK TK';
+		} else {
+			document.querySelector('html').classList.add('ss--no-results');
 		}
-	/*} else if whereAmI.includes('bing') {
-	}*/
+	} else if (whereAmI.includes('bing')) {
+		const bingResults = document.querySelectorAll('li.b_algo');
+
+		if (bingResults.length > 0) {
+			document.querySelector('body').prepend(blurbox);
+
+			bingResults.forEach(function (result, i) {
+				const resultTitle = result.querySelector('h2 > a');
+				const resultHref = resultTitle.href;
+				const resultH = resultTitle.h;
+				const resultDesc = result.querySelector('p');
+				const resultCite = result.querySelector('cite');
+
+				if (resultTitle && resultDesc && resultCite) {
+					results.innerHTML += '<div class="ss-result">' + 
+						'<a href="' + resultHref + '" h="' + resultH + '" class="ss-result__link">' + resultTitle.innerText + '</a>' + 
+						'<h4 class="ss-result__cite">' + resultCite.innerText + '</h4>' + 
+						'<p class="ss-result__description">' + resultDesc.innerText + '</p>' + 
+						'</div>';
+				}
+			});
+
+			// Get page navigation and add to the box
+			if (document.querySelector('.b_pag')) {
+				const navigation = document.querySelector('.b_pag');
+				const clonedNavigation = navigation.cloneNode(true);
+				results.append(clonedNavigation);
+			}
+
+			// Add placeholder for results if we've found results
+			document.querySelector('#b_content').prepend(blurbox);
+
+			// Get Google Height
+			const googleResultsHeight = document.querySelector('#b_content').clientHeight;
+
+			// Set a class to make it all visible
+			document.querySelector('html').classList.add('ss--has-results');
+
+			// Get Simple Height
+			const simpleSearchHeight = viewbox.clientHeight;
+
+			// Cut off original results to stop the page from being super long
+			document.querySelector('#b_content').style.height = (simpleSearchHeight + 100) + 'px';
+
+			document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (googleResultsHeight - simpleSearchHeight) + ' pixels TK TK TK';
+		} else {
+			document.querySelector('html').classList.add('ss--no-results');
+		}
+	}
 }
 
 function closeSimpleSearch() {
@@ -128,6 +148,10 @@ function closeSimpleSearch() {
 
 	if (document.querySelector('#rcnt')) {
 		document.querySelector('#rcnt').style.height = 'auto';
+	}
+
+	if (document.querySelector('#b_content')) {
+		document.querySelector('#b_content').style.height = 'auto';
 	}
 }
 
