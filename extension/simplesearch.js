@@ -26,6 +26,7 @@ const explanation = document.createElement('div');
 explanation.classList.add('ss-footer');
 explanation.innerHTML = '<h3 class="ss-footer__title">TK TK TK</h3><p class="ss-footer__description">TK TKTKTKTKTKTKTTKTK TK TK <a class="ss-footer__link" target="_blank" href="https://themarkup.org">themarkup.org</a></p>';
 
+
 // Make box
 const viewbox = document.createElement('div');
 viewbox.classList.add('ss-box');
