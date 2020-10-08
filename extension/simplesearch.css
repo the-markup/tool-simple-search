@@ -1,13 +1,20 @@
 .ss-blurbox {
 	width: 100vw;
 	height: 100%;
-	z-index: 110;
 	background: linear-gradient(to top, rgba(255, 255, 255, 1) 0px, rgba(255,255,255, 0.8) 200px);
 	position: absolute;
 	left: 0;
 	top: 0;
 	pointer-events: none;
 	opacity: 0;
+}
+
+.ss--is-google .ss-blurbox {
+	z-index: 110;
+}
+
+.ss--is-bing .ss-blurbox {
+	z-index: 5;
 }
 
 .ss--has-results .ss-blurbox {
@@ -196,4 +203,9 @@
 
 .ss--no-results #b_content {
 	opacity: 1;
+}
+
+.ss--has-results .b_pag {
+	padding: 15px;
+	margin-bottom: 15px;
 }
