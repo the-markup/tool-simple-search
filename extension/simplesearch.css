@@ -6,11 +6,18 @@
 	position: absolute;
 	left: 0;
 	top: 0;
-	display: none;
+	pointer-events: none;
+	opacity: 0;
 }
 
 .ss--has-results .ss-blurbox {
-	display: block;
+	pointer-events: all;
+	opacity: 1;
+}
+
+.ss--no-results .ss-blurbox {
+	transition: opacity 0.3s linear;
+	opacity: 0;
 }
 
 .ss-box {
@@ -23,14 +30,13 @@
 	top: 30px;
 	left: 50%;
 	transform: translateX(-50%);
-	display: none;
+	display: flex;
+	flex-direction: column;
 	opacity: 0;
-	transition: opacity 0.2s linear;
+	transition: opacity 0.3s linear;
 }
 
 .ss--has-results .ss-box {
-	display: flex;
-	flex-direction: column;
 	opacity: 1;
 }
 
@@ -49,7 +55,7 @@
 .ss-label__link {
 	color: #ff335f;
 	font-weight: bold;
-	transition: color 0.2s linear;
+	transition: color 0.3s linear;
 }
 
 .ss-label__link:visited {
@@ -83,7 +89,7 @@
 	font-size: 14px;
 	color: #70757a;
 	margin: 0 10px 0 0;
-	transition: color 0.2s linear;
+	transition: color 0.3s linear;
 }
 
 .ss-close__button {
@@ -94,7 +100,7 @@
 	stroke:#70757a;
 	stroke-width:150;
 	stroke-miterlimit:10;
-	transition: stroke 0.2s linear;
+	transition: stroke 0.3s linear;
 }
 
 .ss-results {
@@ -144,7 +150,7 @@
 
 .ss-footer__link {
 	color: #ff335f;
-	transition: color 0.2s linear;
+	transition: color 0.3s linear;
 }
 
 .ss-footer__link:visited {
@@ -163,11 +169,15 @@
 
 #rcnt {
 	opacity: 0;
+	transition: opacity 0.3s linear;
 }
 
 .ss--has-results #rcnt {
 	overflow: hidden;
 	width: 100vw;
 	opacity: 1;
-	transition: opacity 0.2s linear;
+}
+
+.ss--no-results #rcnt {
+	opacity: 1;
 }
