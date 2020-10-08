@@ -46,11 +46,8 @@ function showPopup() {
 		var whereAmI = window.location.hostname;
 		if (whereAmI.includes('google')) {
 			const googleResults = document.querySelectorAll('.rc');
-	
+
 			if (googleResults.length > 0) {
-				// Add placeholder for results if we've found results
-				document.querySelector('body').prepend(blurbox);
-	
 				// Populate new results with those clean results
 				googleResults.forEach(function(result, i) {
 					console.log(result);
@@ -65,16 +62,34 @@ function showPopup() {
 						results.innerHTML += '<div class="ss-result"><h4 class="ss-result__cite">' + cite.innerText + '</h4><a href="' + url + '" rel="' + rel + '" class="ss-result__link">' + title + '</a><p class="ss-result__description">' + desc.innerHTML + '</p></div>';
 					}
 				});
-	
+
+				// Get page navigation and add to the box
+				const navigation = document.querySelector('#foot');
+				results.append(navigation);
+
+				// Add placeholder for results if we've found results
+				document.querySelector('#rcnt').prepend(blurbox);
+
+				// Get Google Height
+				const googleResultsHeight = document.querySelector('#rcnt').clientHeight;
+
 				// Set a class to make it all visible
 				document.querySelector('html').classList.add('ss--has-results');
+
+				// Get Simple Height
+				const simpleSearchHeight = viewbox.clientHeight;
+
+				// Cut off original results to stop the page from being super long
+				document.querySelector('#rcnt').style.maxHeight = (simpleSearchHeight + 100) + 'px';
+
+				document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (googleResultsHeight - simpleSearchHeight) + ' pixels TK TK TK';
 			}
 		} else if (whereAmI.includes('bing')) {
 			const bingResults = document.querySelectorAll('li.b_algo');
 
 			if (bingResults.length > 0) {
 				document.querySelector('body').prepend(blurbox);
-		
+
 				bingResults.forEach(function (result, i) {
 					const resultTitle = result.querySelector('h2 > a');
 					const resultHref = resultTitle.href;
@@ -92,7 +107,6 @@ function showPopup() {
 				});
 
 				document.querySelector('html').classList.add('ss--has-results');
-    			
 			}
 		}
 	/*} else if whereAmI.includes('bing') {
