@@ -1,42 +1,34 @@
+.ss-blurbox {
+	display: none;
+	width: 100vw;
+	height: 100%;
+	z-index: 110;
+	background: linear-gradient(to top, rgba(255, 255, 255, 1) 0px, rgba(255,255,255, 0.8) 200px);
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.ss--has-results .ss-blurbox {
+	display: block;
+}
+
 .ss-box {
 	border: 1px solid #cac7c3;
 	background: #FFF;
 	width: calc(100% + 30px);
 	margin-left: -15px;
-	z-index: 2147483646;
-	max-height: 800px;
 	max-width: 600px;
-	height: 80%;
-
+	position: absolute;
+	top: 30px;
 	left: 50%;
-    top: 50%;
-    position: fixed;
-    -webkit-transform: translate3d(-50%, -50%, 0);
-    -moz-transform: translate3d(-50%, -50%, 0);
-    transform: translate3d(-50%, -50%, 0);
-
+	transform: translateX(-50%);
 	display: none;
 }
 
 .ss--has-results .ss-box {
 	display: flex;
 	flex-direction: column;
-}
-
-.ss-blurbox {
-	display: none;
-	width: 100%;
-	height: 100%;
-	z-index: 2147483645;
-	background: rgba(0,0,0,0.5);
-	position: fixed;
-	left: 0;
-	top: 0;
-
-}
-
-.ss--has-results .ss-blurbox {
-	display: block;
 }
 
 .ss-header {
@@ -76,17 +68,17 @@
 }
 
 .ss-close:hover .ss-close__button {
-	stroke: #242a49;
+	stroke: #377fec;
 }
 
 .ss-close:hover .ss-close__label {
-	color: #242a49;
+	color: #377fec;
 }
 
 .ss-close__label {
 	font-weight: bold;
 	font-size: 14px;
-	color: #377fec;
+	color: #70757a;
 	margin: 0 10px 0 0;
 	transition: color 0.2s linear;
 }
@@ -96,7 +88,7 @@
 	width: 20px;
 	height: 20px;
 	fill:none;
-	stroke:#377fec;
+	stroke:#70757a;
 	stroke-width:150;
 	stroke-miterlimit:10;
 	transition: stroke 0.2s linear;
@@ -161,20 +153,12 @@
 	text-decoration: none;
 }
 
-.ss--has-results {
-	overflow: hidden;
-}
-/*	-webkit-filter: blur(5px);
-  	-moz-filter: blur(5px);
-  	-o-filter: blur(5px);
-  	-ms-filter: blur(5px);
-  	filter: blur(5px); 
-}*/
-
 /* Google Page Alterations */
-/*.ss--has-results #rhs,
-.ss--has-results #res,
-.ss--has-results #bres,
-.ss--has-results #brs {
-	display: none;
-}*/
+.ss--has-results #foot {
+	width: 100% !important;
+}
+
+.ss--has-results #rcnt {
+	overflow: hidden;
+	width: 100vw;
+}
