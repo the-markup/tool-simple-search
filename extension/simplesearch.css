@@ -1,5 +1,4 @@
 .ss-blurbox {
-	display: none;
 	width: 100vw;
 	height: 100%;
 	z-index: 110;
@@ -7,6 +6,7 @@
 	position: absolute;
 	left: 0;
 	top: 0;
+	display: none;
 }
 
 .ss--has-results .ss-blurbox {
@@ -24,11 +24,14 @@
 	left: 50%;
 	transform: translateX(-50%);
 	display: none;
+	opacity: 0;
+	transition: opacity 0.2s linear;
 }
 
 .ss--has-results .ss-box {
 	display: flex;
 	flex-direction: column;
+	opacity: 1;
 }
 
 .ss-header {
@@ -158,7 +161,13 @@
 	width: 100% !important;
 }
 
+#rcnt {
+	opacity: 0;
+}
+
 .ss--has-results #rcnt {
 	overflow: hidden;
 	width: 100vw;
+	opacity: 1;
+	transition: opacity 0.2s linear;
 }
