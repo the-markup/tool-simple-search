@@ -67,8 +67,10 @@ function showPopup() {
 				});
 
 				// Get page navigation and add to the box
-				const navigation = document.querySelector('#foot');
-				results.append(navigation);
+				if (document.querySelector('#foot h1')) {
+					const navigation = document.querySelector('#foot');
+					results.append(navigation);
+				}
 
 				// Add placeholder for results if we've found results
 				document.querySelector('#rcnt').prepend(blurbox);
