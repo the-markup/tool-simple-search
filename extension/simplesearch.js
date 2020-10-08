@@ -79,7 +79,7 @@ function showPopup() {
 			const googleResultsHeight = document.querySelector('#rcnt').clientHeight;
 
 			// Set a class to make it all visible
-			document.querySelector('html').classList.add('ss--has-results');
+			document.querySelector('html').classList.add('ss--has-results', 'ss--is-google');
 
 			// Get Simple Height
 			const simpleSearchHeight = viewbox.clientHeight;
@@ -127,7 +127,7 @@ function showPopup() {
 			const googleResultsHeight = document.querySelector('#b_content').clientHeight;
 
 			// Set a class to make it all visible
-			document.querySelector('html').classList.add('ss--has-results');
+			document.querySelector('html').classList.add('ss--has-results', 'ss--is-bing');
 
 			// Get Simple Height
 			const simpleSearchHeight = viewbox.clientHeight;
