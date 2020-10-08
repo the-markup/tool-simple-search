@@ -8,10 +8,7 @@ const closeButton = document.createElement('div');
 closeButton.classList.add('ss-close');
 closeButton.innerHTML = '<p class="ss-close__label">View Original Results</p><svg version="1.1" class="ss-close__button" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 1024 1024" xml:space="preserve"><path d="M91.6 91.6l840.8 840.8M932.4 91.6L91.6 932.4"/></svg>';
 closeButton.addEventListener('click', function() {
-	document.querySelector('html').classList.remove('ss--has-results');
-	if (document.querySelector('#rcnt')) {
-		document.querySelector('#rcnt').style.height = 'auto';
-	}
+	closeSimpleSearch();
 });
 
 // Make header
@@ -40,6 +37,11 @@ viewbox.appendChild(explanation);
 const blurbox = document.createElement('div');
 blurbox.classList.add('ss-blurbox');
 blurbox.appendChild(viewbox);
+blurbox.addEventListener('click', function(e) {
+	if (e.target.classList.contains('ss-blurbox')) {
+		closeSimpleSearch();
+	}
+});
 
 function showPopup() {
 	// Get Page Results
@@ -88,7 +90,8 @@ function showPopup() {
 				document.querySelector('#rcnt').style.height = (simpleSearchHeight + 100) + 'px';
 
 				document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (googleResultsHeight - simpleSearchHeight) + ' pixels TK TK TK';
-
+			} else {
+				document.querySelector('html').classList.add('ss--no-results');
 			}
 		} else if (whereAmI.includes('bing')) {
 			const bingResults = document.querySelectorAll('li.b_algo');
@@ -117,6 +120,15 @@ function showPopup() {
 		}
 	/*} else if whereAmI.includes('bing') {
 	}*/
+}
+
+function closeSimpleSearch() {
+	document.querySelector('html').classList.remove('ss--has-results');
+	document.querySelector('html').classList.add('ss--no-results');
+
+	if (document.querySelector('#rcnt')) {
+		document.querySelector('#rcnt').style.height = 'auto';
+	}
 }
 
 showPopup();
