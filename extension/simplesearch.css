@@ -45,6 +45,7 @@
 
 .ss-results {
 	max-width: 600px;
+	padding: 15px;
 }
 
 .ss--has-results .ss-box {
@@ -120,8 +121,12 @@
 }
 
 .ss-result {
-	padding: 15px;
+	padding: 15px 0px;
 }
+
+/*.ss-results #fprs {
+	padding-left:  15px;
+}*/
 
 .ss-result__cite {
 	color: #70757a;

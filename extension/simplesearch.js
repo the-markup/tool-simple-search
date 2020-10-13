@@ -71,8 +71,14 @@ function showPopup() {
 			// Get page navigation and add to the box
 			if (document.querySelector('#foot h1')) {
 				const navigation = document.querySelector('#foot');
+				const didYouMean = document.querySelector('#fprs');
 				const clonedNavigation = navigation.cloneNode(true);
 				results.append(clonedNavigation);
+
+				if (didYouMean) {
+					const clonedDidYouMean = didYouMean.cloneNode(true);
+					results.prepend(didYouMean);
+				}
 			}
 
 			// Add placeholder for results if we've found results
