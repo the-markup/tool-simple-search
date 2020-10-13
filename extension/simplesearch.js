@@ -48,7 +48,7 @@ function showPopup() {
 	const whereAmI = window.location.hostname;
 
 	if (whereAmI.includes('google')) {
-		const googleResults = document.querySelectorAll('.rc');
+		const googleResults = document.querySelectorAll('div#rso > div.g > div.rc');
 
 		if (googleResults.length > 0) {
 			// Populate new results with those clean results
@@ -63,6 +63,8 @@ function showPopup() {
 
 				if (desc && cite) {
 					results.innerHTML += '<div class="ss-result"><h4 class="ss-result__cite">' + cite.innerText + '</h4><a href="' + url + '" rel="' + rel + '" class="ss-result__link">' + title + '</a><p class="ss-result__description">' + desc.innerHTML + '</p></div>';
+				} else if (cite) {
+					results.innerHTML += '<div class="ss-result"><h4 class="ss-result__cite">' + cite.innerText + '</h4><a href="' + url + '" rel="' + rel + '" class="ss-result__link">' + title + '</a><p class="ss-result__description">' + '</p></div>';
 				}
 			});
 
