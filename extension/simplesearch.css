@@ -32,7 +32,7 @@
 	background: #FFF;
 	width: calc(100% + 30px);
 	margin-left: -15px;
-	max-width: 600px;
+	max-width: 80%;
 	position: absolute;
 	top: 30px;
 	left: 50%;
@@ -41,6 +41,10 @@
 	flex-direction: column;
 	opacity: 0;
 	transition: opacity 0.3s linear;
+}
+
+.ss-results {
+	max-width: 600px;
 }
 
 .ss--has-results .ss-box {
