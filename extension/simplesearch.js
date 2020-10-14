@@ -44,8 +44,10 @@ blurbox.addEventListener('click', function(e) {
 	}
 });
 
+let whereAmI;
+
 function showPopup() {
-	const whereAmI = window.location.hostname;
+	whereAmI = window.location.hostname;
 
 	if (whereAmI.includes('google')) {
 		const googleResults = document.querySelectorAll('div#rso > div.g > div.rc');
@@ -53,7 +55,6 @@ function showPopup() {
 		if (googleResults.length > 0) {
 			// Populate new results with those clean results
 			googleResults.forEach(function(result, i) {
-				console.log(result);
 				const linkEl = result.querySelector('a');
 				const url = linkEl.href;
 				const rel = linkEl.rel;
@@ -165,3 +166,17 @@ function closeSimpleSearch() {
 }
 
 showPopup();
+
+// Add event listener for subsequent Bing searches
+if (whereAmI.includes('bing')) {
+	document.addEventListener('search', () => {
+		const url = window.location.href;
+
+		const checkForNewURL = setInterval(() => {
+			if (url !== window.location.href) {
+				clearInterval(checkForNewURL);
+				window.location.reload();
+			}
+		}, 20);
+	})
+}
