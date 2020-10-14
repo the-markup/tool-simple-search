@@ -86,7 +86,7 @@ function showPopup() {
 			document.querySelector('#rcnt').prepend(blurbox);
 
 			// Get Google Height
-			const googleResultsHeight = document.querySelector('#rcnt').clientHeight;
+			const pageHeightForGoogle = document.body.clientHeight;
 
 			// Set a class to make it all visible
 			document.querySelector('html').classList.add('ss--has-results', 'ss--is-google');
@@ -95,9 +95,12 @@ function showPopup() {
 			const simpleSearchHeight = viewbox.clientHeight;
 
 			// Cut off original results to stop the page from being super long
-			document.querySelector('#rcnt').style.height = (simpleSearchHeight + 100) + 'px';
+			document.querySelector('#rcnt').style.height = (simpleSearchHeight + 50) + 'px';
 
-			document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (googleResultsHeight - simpleSearchHeight) + ' pixels TK TK TK';
+			// Get New Page Height
+			const pageHeightForSimple = document.body.clientHeight;
+
+			document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (pageHeightForGoogle - pageHeightForSimple) + ' pixels TK TK TK';
 		} else {
 			document.querySelector('html').classList.add('ss--no-results');
 		}
@@ -134,7 +137,7 @@ function showPopup() {
 			document.querySelector('#b_content').prepend(blurbox);
 
 			// Get Google Height
-			const googleResultsHeight = document.querySelector('#b_content').clientHeight;
+			const pageHeightForBing = document.body.clientHeight;
 
 			// Set a class to make it all visible
 			document.querySelector('html').classList.add('ss--has-results', 'ss--is-bing');
@@ -145,7 +148,10 @@ function showPopup() {
 			// Cut off original results to stop the page from being super long
 			document.querySelector('#b_content').style.height = (simpleSearchHeight + 100) + 'px';
 
-			document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (googleResultsHeight - simpleSearchHeight) + ' pixels TK TK TK';
+			// Get Simple Search Page Height
+			const pageHeightForSimple = document.body.clientHeight;
+
+			document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (pageHeightForBing - pageHeightForSimple) + ' pixels TK TK TK';
 		} else {
 			document.querySelector('html').classList.add('ss--no-results');
 		}
