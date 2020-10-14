@@ -30,7 +30,7 @@
 .ss-box {
 	border: 1px solid #cac7c3;
 	background: #FFF;
-	width: calc(100% + 30px);
+	width: 620px;
 	margin-left: -15px;
 	max-width: 80%;
 	position: absolute;
@@ -45,7 +45,7 @@
 
 .ss-results {
 	max-width: 600px;
-	padding: 15px;
+	padding: 0 15px 15px 15px;
 }
 
 .ss--has-results .ss-box {
