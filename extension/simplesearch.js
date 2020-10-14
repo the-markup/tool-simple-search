@@ -50,7 +50,7 @@ function showPopup() {
 	whereAmI = window.location.hostname;
 
 	if (whereAmI.includes('google')) {
-		const googleResults = document.querySelectorAll('div#rso > div.g > div.rc');
+		const googleResults = document.querySelectorAll('div#rso > div.g div.rc');
 
 		if (googleResults.length > 0) {
 			// Populate new results with those clean results
@@ -72,7 +72,7 @@ function showPopup() {
 			// Get page navigation and add to the box
 			if (document.querySelector('#foot h1')) {
 				const navigation = document.querySelector('#foot');
-				const didYouMean = document.querySelector('#fprs');
+				const didYouMean = document.querySelector('#taw');
 				const clonedNavigation = navigation.cloneNode(true);
 				results.append(clonedNavigation);
 
