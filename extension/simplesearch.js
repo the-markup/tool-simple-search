@@ -24,8 +24,17 @@ results.classList.add('ss-results');
 // Make footer
 const explanation = document.createElement('div');
 explanation.classList.add('ss-footer');
-explanation.innerHTML = '<h3 class="ss-footer__title">TK TK TK</h3><p class="ss-footer__description">TK TKTKTKTKTKTKTTKTK TK TK <a class="ss-footer__link" target="_blank" href="https://themarkup.org">themarkup.org</a></p>';
+//explanation.innerHTML = '<h3 class="ss-footer__title">TK TK TK</h3><p class="ss-footer__description">TK TKTKTKTKTKTKTTKTK TK TK <a class="ss-footer__link" target="_blank" href="https://themarkup.org">themarkup.org</a></p>';
 
+const explanationHed = document.createElement('h3');
+const explanationDek = document.createElement('p');
+explanationHed.classList.add('ss-footer__title');
+explanationDek.classList.add('ss-footer__description');
+explanation.appendChild(explanationHed);
+explanation.appendChild(explanationDek);
+
+explanationHed.innerHTML = 'Like this tool?'
+explanationDek.innerHTML = 'Want to play with more of our tools, or read more about how technology like search engines is affecting society? Read more at <a class="ss-footer__link" target="_blank" href="https://themarkup.org">themarkup.org</a>';
 
 // Make box
 const viewbox = document.createElement('div');
@@ -100,7 +109,14 @@ function showPopup() {
 			// Get New Page Height
 			const pageHeightForSimple = document.body.clientHeight;
 
-			document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (pageHeightForGoogle - pageHeightForSimple) + ' pixels TK TK TK';
+			//document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (pageHeightForGoogle - pageHeightForSimple) + ' pixels TK TK TK';
+
+			// Get Difference 
+			const pageDifference = (pageHeightForGoogle - pageHeightForSimple);
+
+			const footCopy = generateDescriptiveCopy(pageHeightForGoogle, pageHeightForSimple, pageDifference ); 
+			document.querySelector('.ss-footer__title').innerHTML = footCopy[0];
+			document.querySelector('.ss-footer__description').innerHTML = footCopy[1];
 		} else {
 			document.querySelector('html').classList.add('ss--no-results');
 		}
@@ -151,11 +167,42 @@ function showPopup() {
 			// Get Simple Search Page Height
 			const pageHeightForSimple = document.body.clientHeight;
 
-			document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (pageHeightForBing - pageHeightForSimple) + ' pixels TK TK TK';
+			// Get Difference 
+			const pageDifference = (pageHeightForBing - pageHeightForSimple);
+
+			const footCopy = generateDescriptiveCopy(pageHeightForBing, pageHeightForSimple, pageDifference ); 
+			document.querySelector('.ss-footer__title').innerHTML = footCopy[0];
+			document.querySelector('.ss-footer__description').innerHTML = footCopy[1];
+
+
+			//document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (pageHeightForBing - pageHeightForSimple) + ' pixels TK TK TK';
 		} else {
 			document.querySelector('html').classList.add('ss--no-results');
 		}
 	}
+}
+
+function generateDescriptiveCopy( original, current, pageDifference ) {
+	const copy = [
+		[
+			'Did you know?',
+			"This page is " + pageDifference + " pixels shorter with Simple Search than the original. What's taking up all that extra space? Read more at <a class='ss-footer__link' target='_blank' href='https://themarkup.org'>themarkup.org</a>"
+		], [
+			'You saved ' + pageDifference + ' pixels.',
+			"What's taking up all that extra space? You can always click \"View Original Results\" to find out. Check out our other tools and read our work at <a class='ss-footer__link' target='_blank' href='https://themarkup.org'>themarkup.org</a>"
+		], [
+			'Like this tool?',
+			'Want to play with more of our tools, or read more about how technologies like search engines are affecting society? Read more at <a class="ss-footer__link" target="_blank" href="https://themarkup.org">themarkup.org</a>'
+		], [
+			'Like this tool?',
+			'Thanks! We have a lot more stuff for you. Check out our other tools and read our work at our website, <a class="ss-footer__link" target="_blank" href="https://themarkup.org">themarkup.org</a>'
+		],
+	];
+
+	const floooor = (pageDifference > 0) ? 0 : 2;
+	const choice = Math.floor(Math.random() * (copy.length - floooor)) + floooor;
+
+	return copy[choice];
 }
 
 function closeSimpleSearch() {
