@@ -1,14 +1,10 @@
 {
 
   "manifest_version": 2,
-  "name": "Simple Search by The Markup",
-  "version": "1.0",
+  "name": "Simple Search",
+  "version": "1.1.1",
 
-  "description": "Just the blue links, please!",
-
-  "icons": {
-    "48": "icons/border-48.png"
-  },
+  "description": "This extension highlights “ten blue link”-type search results over infoboxes and other content. Works with Bing and Google.",
 
   "content_scripts": [
     {
