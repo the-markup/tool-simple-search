@@ -217,27 +217,34 @@ function closeSimpleSearch() {
 	}
 }
 
-// CHROME PORTION
+function openSimpleSearch() {
+	document.querySelector('html').classList.add('ss--has-results');
+	document.querySelector('html').classList.remove('ss--no-results');
+}
+
+// MO PORTION
 
 function checkSettings() {
 	var key = "toggle";
-	chrome.storage.sync.get([key], function(result) {
+	browser.storage.sync.get([key], function(result) {
 		var toggle = result[key];
 
 		if (toggle) {
+			console.log("yep yep yep");
 			showPopup();
 		} else {
 			closeSimpleSearch();
+			console.log('nooooope');
 		}
 	});
 }
 
 // listen for storage changes
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-	var key = "toggle";
+browser.storage.onChanged.addListener(function(changes, namespace) {
     for (key in changes) {
     	if (key === 'toggle') {
-    		checkSettings();	
+    		console.log('changed!!');
+    		checkSettings();
     	}
     }
 });
@@ -245,7 +252,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 
 checkSettings();
 
-// END CHROME PORTION
+// END MO PORTION
 
 // Add event listener for subsequent Bing searches
 if (whereAmI.includes('bing')) {

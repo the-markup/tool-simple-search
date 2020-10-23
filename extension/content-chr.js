@@ -233,11 +233,11 @@ function checkSettings() {
 }
 
 // listen for storage changes
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-	var key = "toggle";
+browser.storage.onChanged.addListener(function(changes, namespace) {
     for (key in changes) {
     	if (key === 'toggle') {
-    		checkSettings();	
+    		console.log('changed!!');
+    		checkSettings();
     	}
     }
 });
