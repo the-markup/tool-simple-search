@@ -4,6 +4,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
 
 chrome.browserAction.onClicked.addListener(function(tab) {
 	// Get the current setting
+
 	var key = "toggle";
 	chrome.storage.sync.get([key], function(result) {
 		var toggle = result[key];
@@ -31,9 +32,13 @@ function updateIcon() {
 		var toggle = result[key];
 
 		if (toggle) {
-			chrome.browserAction.setIcon({path:"icons/on.png"});
+			chrome.browserAction.setIcon({
+				"path": 'icons/on.png'
+			});
 		} else {
-			chrome.browserAction.setIcon({path:"icons/off.png"});
+			chrome.browserAction.setIcon({
+				"path": 'icons/off.png'
+			});
 		}
 	});
 }
