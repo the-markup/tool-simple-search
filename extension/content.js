@@ -80,7 +80,7 @@ function showPopup() {
 			// Get page navigation and add to the box
 			if (document.querySelector('#foot h1')) {
 				const navigation = document.querySelector('#foot');
-				const didYouMean = document.querySelector('#taw');
+				const didYouMean = document.querySelector('#taw > div > div.med');
 				const clonedNavigation = navigation.cloneNode(true);
 				results.append(clonedNavigation);
 
@@ -226,7 +226,7 @@ function openSimpleSearch() {
 
 function checkSettings() {
 	var key = "toggle";
-	browser.storage.sync.get([key], function(result) {
+	chrome.storage.sync.get([key], function(result) {
 		var toggle = result[key];
 
 		if (toggle) {
@@ -240,7 +240,7 @@ function checkSettings() {
 }
 
 // listen for storage changes
-browser.storage.onChanged.addListener(function(changes, namespace) {
+chrome.storage.onChanged.addListener(function(changes, namespace) {
     for (key in changes) {
     	if (key === 'toggle') {
     		console.log('changed!!');
