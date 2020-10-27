@@ -205,8 +205,8 @@ function generateDescriptiveCopy( original, current, pageDifference ) {
 }
 
 function closeSimpleSearch() {
-	document.querySelector('html').classList.remove('ss--has-results');
-	document.querySelector('html').classList.add('ss--no-results');
+	document.querySelector('html').classList.remove('ss--on');
+	document.querySelector('html').classList.add('ss--off');
 
 	if (document.querySelector('#rcnt')) {
 		document.querySelector('#rcnt').style.height = 'auto';
