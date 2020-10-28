@@ -58,6 +58,9 @@ blurbox.addEventListener('click', function(e) {
 let whereAmI;
 whereAmI = window.location.hostname;
 
+let pageHeightForBing;
+let pageHeightForGoogle;
+
 // when page initially loads
 function onStart() {
     var key = "toggle";
@@ -117,7 +120,7 @@ function loadSimpleSearch() {
 			document.querySelector('#rcnt').prepend(blurbox);
 
 			// Get Google Height
-			const pageHeightForGoogle = document.body.clientHeight;
+			pageHeightForGoogle = document.body.clientHeight;
 
 			// Set a class to make it all visible
 			document.querySelector('html').classList.add('ss--has-results', 'ss--is-google');
@@ -129,7 +132,7 @@ function loadSimpleSearch() {
 
 		if (bingResults.length > 0) {
 			console.log("has bing results");
-			document.querySelector('body').prepend(blurbox);
+
 			console.log("added results");
 			bingResults.forEach(function (result, i) {
 				console.log("result " + i);
@@ -155,11 +158,14 @@ function loadSimpleSearch() {
 				results.append(clonedNavigation);
 			}
 
+			//console.log(blurbox.innerHTML);
 			// Add placeholder for results if we've found results
-			document.querySelector('div#b_content').prepend(blurbox);
 
-			// Get Google Height
-			const pageHeightForBing = document.body.clientHeight;
+			blurbox.style.top = document.querySelector('#b_content').offsetTop + "px";
+			document.querySelector('html').appendChild(blurbox);
+			// Get Engine Height
+			pageHeightForBing = document.body.clientHeight;
+			console.log(pageHeightForBing);
 
 			// Set a class to make it all visible
 			document.querySelector('html').classList.add('ss--has-results', 'ss--is-bing');
@@ -198,10 +204,15 @@ function openSimpleSearch() {
 	} else if (whereAmI.includes('bing')) {
 		// Get Simple Height
 		const simpleSearchHeight = viewbox.clientHeight;
+		const footerHeight = document.querySelector('#b_footer').clientHeight;
+		const footerPadding = 12;
+
 		// Cut off original results to stop the page from being super long
-		document.querySelector('#b_content').style.height = (simpleSearchHeight + 100) + 'px';
+		document.querySelector('#b_content').style.height = (simpleSearchHeight) + 'px';
+		blurbox.style.height = (simpleSearchHeight + 100 - footerHeight + footerPadding) + 'px';
 		// Get Simple Search Page Height
 		const pageHeightForSimple = document.body.clientHeight;
+		console.log(pageHeightForSimple);
 		// Get Difference 
 		const pageDifference = (pageHeightForBing - pageHeightForSimple);
 		const footCopy = generateDescriptiveCopy(pageHeightForBing, pageHeightForSimple, pageDifference ); 
@@ -275,6 +286,7 @@ if (whereAmI.includes('bing')) {
 
 		const checkForNewURL = setInterval(() => {
 			if (url !== window.location.href) {
+				loaded = false;
 				clearInterval(checkForNewURL);
 				window.location.reload();
 			}

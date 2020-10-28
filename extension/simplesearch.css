@@ -15,6 +15,11 @@
 
 .ss--is-bing .ss-blurbox {
 	z-index: 5;
+	font-family: sans-serif !important;
+}
+
+.ss--is-bing .ss-box {
+	font-family: sans-serif !important;
 }
 
 .ss--on.ss--has-results .ss-blurbox {
