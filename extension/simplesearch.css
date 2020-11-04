@@ -15,14 +15,19 @@
 
 .ss--is-bing .ss-blurbox {
 	z-index: 5;
+	font-family: sans-serif !important;
 }
 
-.ss--has-results .ss-blurbox {
+.ss--is-bing .ss-box {
+	font-family: sans-serif !important;
+}
+
+.ss--on.ss--has-results .ss-blurbox {
 	pointer-events: all;
 	opacity: 1;
 }
 
-.ss--no-results .ss-blurbox {
+.ss--off .ss-blurbox {
 	transition: opacity 0.3s linear;
 	opacity: 0;
 }
@@ -48,7 +53,7 @@
 	padding: 0 15px 15px 15px;
 }
 
-.ss--has-results .ss-box {
+.ss--on.ss--has-results .ss-box {
 	opacity: 1;
 }
 
@@ -179,47 +184,49 @@
 }
 
 /* Google Page Alterations */
-.ss--has-results #foot {
+.ss--on .ss--has-results #foot {
 	width: 100% !important;
 }
 
-#rcnt {
+
+.ss--loaded #rcnt {
 	opacity: 0;
 	transition: opacity 0.3s linear;
 }
 
-.ss--has-results #rcnt {
+
+.ss--has-results.ss--on #rcnt {
 	overflow: hidden;
 	width: 100vw;
 	opacity: 1;
 }
 
-.ss--no-results #rcnt {
+.ss--off #rcnt {
 	opacity: 1;
 }
 
 /* Bing Page Alterations */
-#b_content {
+.ss--loaded #b_content {
 	position: relative;
 	opacity: 0;
 	transition: opacity 0.3s linear;
 }
 
-.ss--has-results #b_content {
+.ss--on.ss--has-results #b_content {
 	overflow: hidden;
 	opacity: 1;
 }
 
-.ss--no-results #b_content {
+.ss--off #b_content {
 	opacity: 1;
 }
 
-.ss--has-results .b_pag {
+.ss--on.ss--has-results .b_pag {
 	padding: 15px;
 	margin-bottom: 15px;
 }
 
-.ss--has-results .ss-box .b_pag {
+.ss--on.ss--has-results .ss-box .b_pag {
 	display: flex;
 	align-items: center;
 	justify-content: center;
