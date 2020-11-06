@@ -58,6 +58,9 @@ blurbox.addEventListener('click', function(e) {
 let whereAmI;
 whereAmI = window.location.hostname;
 
+let isActuallySearch;
+isActuallySearch = (new URLSearchParams(window.location.search).get('tbm') === null);
+
 let pageHeightForBing;
 let pageHeightForGoogle;
 
@@ -81,9 +84,10 @@ function onStart() {
 
 // when first loading simple search
 function loadSimpleSearch() {
-	document.querySelector('html').classList.add('ss--loaded');
-	console.log('load simple search');
-	if (whereAmI.includes('google')) {
+	if (isActuallySearch) {
+		document.querySelector('html').classList.add('ss--loaded');
+
+		if (whereAmI.includes('google')) {
 		const googleResults = document.querySelectorAll('div#rso > div.g div.rc');
 
 		if (googleResults.length > 0) {
@@ -127,7 +131,7 @@ function loadSimpleSearch() {
 		} else {
 			document.querySelector('html').classList.add('ss--no-results');
 		}
-	} else if (whereAmI.includes('bing')) {
+		} else if (whereAmI.includes('bing')) {
 		const bingResults = document.querySelectorAll('li.b_algo');
 
 		if (bingResults.length > 0) {
@@ -175,18 +179,19 @@ function loadSimpleSearch() {
 		} else {
 			document.querySelector('html').classList.add('ss--no-results');
 		}
+		}
+		loaded = true;
 	}
-	loaded = true;
 }
 
 // when opening simple search (either automatically or via toggle)
 function openSimpleSearch() {
 	console.log('open simple search');
 
-	document.querySelector('html').classList.remove('ss--off');
-	document.querySelector('html').classList.add('ss--on');
+	if (whereAmI.includes('google') && isActuallySearch) {
+		document.querySelector('html').classList.remove('ss--off');
+		document.querySelector('html').classList.add('ss--on');
 
-	if (whereAmI.includes('google')) {
 		// Get Simple Height
 		const simpleSearchHeight = viewbox.clientHeight;
 		console.log("simple height " + simpleSearchHeight);
@@ -202,6 +207,8 @@ function openSimpleSearch() {
 		document.querySelector('.ss-footer__title').innerHTML = footCopy[0];
 		document.querySelector('.ss-footer__description').innerHTML = footCopy[1];
 	} else if (whereAmI.includes('bing')) {
+		document.querySelector('html').classList.remove('ss--off');
+		document.querySelector('html').classList.add('ss--on');
 		// Get Simple Height
 		const simpleSearchHeight = viewbox.clientHeight;
 		const footerHeight = document.querySelector('#b_footer').clientHeight;
