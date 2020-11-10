@@ -1,10 +1,10 @@
 # Simple Search
 
-This repository contains code for our browser extension, Simple Search. To read more about it, please refer to our post, "[Introducing Simple Search]()."
+This repository contains code for our browser extension, Simple Search. To read more about it, please refer to our post, "[Introducing Simple Search](https://themarkup.org/google-the-giant/2020/11/10/introducing-simple-search)."
 
 ## Installation
 
-To install, download via the [Firefox]() or [Chrome]() extension stores, depending on your browser.
+To install, download via the [Firefox](https://addons.mozilla.org/en-US/firefox/addon/simple-search/) or [Chrome](https://chrome.google.com/webstore/detail/simple-search/bbpcngjcblhpkhadnbhgdjhmidojegha) extension stores, depending on your browser.
 
 ## Licensing
 
