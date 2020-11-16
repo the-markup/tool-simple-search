@@ -291,6 +291,15 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 	}
 });
 
+// Add event listener for when user presses esc
+document.addEventListener('keydown', e => {
+	if(e.key === "Escape") {
+		if (document.querySelector('html').classList.contains('ss--on')) {
+			closeSimpleSearch();
+		}
+	}
+})
+
 // Add event listener for subsequent Bing searches
 if (whereAmI.includes('bing')) {
 	document.addEventListener('search', () => {
