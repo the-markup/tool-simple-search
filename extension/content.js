@@ -88,97 +88,96 @@ function loadSimpleSearch() {
 		document.querySelector('html').classList.add('ss--loaded');
 
 		if (whereAmI.includes('google')) {
-		const googleResults = document.querySelectorAll('div#rso > div.g div.rc');
+			const googleResults = document.querySelectorAll('div#rso > div.g div.rc');
 
-		if (googleResults.length > 0) {
-			// Populate new results with those clean results
-			googleResults.forEach(function(result, i) {
-				const linkEl = result.querySelector('a');
-				const url = linkEl.href;
-				const rel = linkEl.rel;
-				const title = result.querySelector('h3').innerHTML;
-				const desc = result.querySelector('div > div > span > span:last-of-type');
-				const cite = result.querySelector('cite');
+			if (googleResults.length > 0) {
+				// Populate new results with those clean results
+				googleResults.forEach(function(result, i) {
+					const linkEl = result.querySelector('a');
+					const url = linkEl.href;
+					const rel = linkEl.rel;
+					const title = result.querySelector('h3').innerHTML;
+					const desc = result.querySelector('div > div > span > span:last-of-type');
+					const cite = result.querySelector('cite');
 
-				if (desc && cite) {
-					results.innerHTML += '<div class="ss-result"><h4 class="ss-result__cite">' + cite.innerText + '</h4><a href="' + url + '" rel="' + rel + '" class="ss-result__link">' + title + '</a><p class="ss-result__description">' + desc.innerHTML + '</p></div>';
-				} else if (cite) {
-					results.innerHTML += '<div class="ss-result"><h4 class="ss-result__cite">' + cite.innerText + '</h4><a href="' + url + '" rel="' + rel + '" class="ss-result__link">' + title + '</a><p class="ss-result__description">' + '</p></div>';
+					if (desc && cite) {
+						results.innerHTML += '<div class="ss-result"><h4 class="ss-result__cite">' + cite.innerText + '</h4><a href="' + url + '" rel="' + rel + '" class="ss-result__link">' + title + '</a><p class="ss-result__description">' + desc.innerHTML + '</p></div>';
+					} else if (cite) {
+						results.innerHTML += '<div class="ss-result"><h4 class="ss-result__cite">' + cite.innerText + '</h4><a href="' + url + '" rel="' + rel + '" class="ss-result__link">' + title + '</a><p class="ss-result__description">' + '</p></div>';
+					}
+				});
+
+				// Get page navigation and add to the box
+				if (document.querySelector('#foot h1')) {
+					const navigation = document.querySelector('#foot');
+					const didYouMean = document.querySelector('#taw > div > div.med');
+					const clonedNavigation = navigation.cloneNode(true);
+					results.append(clonedNavigation);
+
+					if (didYouMean) {
+						const clonedDidYouMean = didYouMean.cloneNode(true);
+						results.prepend(didYouMean);
+					}
 				}
-			});
 
-			// Get page navigation and add to the box
-			if (document.querySelector('#foot h1')) {
-				const navigation = document.querySelector('#foot');
-				const didYouMean = document.querySelector('#taw > div > div.med');
-				const clonedNavigation = navigation.cloneNode(true);
-				results.append(clonedNavigation);
+				// Add placeholder for results if we've found results
+				document.querySelector('#rcnt').prepend(blurbox);
 
-				if (didYouMean) {
-					const clonedDidYouMean = didYouMean.cloneNode(true);
-					results.prepend(didYouMean);
-				}
+				// Get Google Height
+				pageHeightForGoogle = document.body.clientHeight;
+
+				// Set a class to make it all visible
+				document.querySelector('html').classList.add('ss--has-results', 'ss--is-google');
+			} else {
+				document.querySelector('html').classList.add('ss--no-results');
 			}
-
-			// Add placeholder for results if we've found results
-			document.querySelector('#rcnt').prepend(blurbox);
-
-			// Get Google Height
-			pageHeightForGoogle = document.body.clientHeight;
-
-			// Set a class to make it all visible
-			document.querySelector('html').classList.add('ss--has-results', 'ss--is-google');
-		} else {
-			document.querySelector('html').classList.add('ss--no-results');
-		}
 		} else if (whereAmI.includes('bing')) {
-		const bingResults = document.querySelectorAll('li.b_algo');
+			const bingResults = document.querySelectorAll('li.b_algo');
 
-		if (bingResults.length > 0) {
-			console.log("has bing results");
+			if (bingResults.length > 0) {
+				console.log("has bing results");
 
-			console.log("added results");
-			bingResults.forEach(function (result, i) {
-				console.log("result " + i);
-				const resultTitle = result.querySelector('h2 > a');
-				const resultHref = resultTitle.href;
-				const resultH = resultTitle.h;
-				const resultDesc = result.querySelector('p');
-				const resultCite = result.querySelector('cite');
+				console.log("added results");
+				bingResults.forEach(function (result, i) {
+					console.log("result " + i);
+					const resultTitle = result.querySelector('h2 > a');
+					const resultHref = resultTitle.href;
+					const resultH = resultTitle.h;
+					const resultDesc = result.querySelector('p');
+					const resultCite = result.querySelector('cite');
 
-				if (resultTitle && resultDesc && resultCite) {
-					results.innerHTML += '<div class="ss-result">' + 
-						'<a href="' + resultHref + '" h="' + resultH + '" class="ss-result__link">' + resultTitle.innerText + '</a>' + 
-						'<h4 class="ss-result__cite">' + resultCite.innerText + '</h4>' + 
-						'<p class="ss-result__description">' + resultDesc.innerText + '</p>' + 
-						'</div>';
+					if (resultTitle && resultDesc && resultCite) {
+						results.innerHTML += '<div class="ss-result">' + 
+							'<a href="' + resultHref + '" h="' + resultH + '" class="ss-result__link">' + resultTitle.innerText + '</a>' + 
+							'<h4 class="ss-result__cite">' + resultCite.innerText + '</h4>' + 
+							'<p class="ss-result__description">' + resultDesc.innerText + '</p>' + 
+							'</div>';
+					}
+				});
+
+				// Get page navigation and add to the box
+				if (document.querySelector('.b_pag')) {
+					const navigation = document.querySelector('.b_pag');
+					const clonedNavigation = navigation.cloneNode(true);
+					results.append(clonedNavigation);
 				}
-			});
 
-			// Get page navigation and add to the box
-			if (document.querySelector('.b_pag')) {
-				const navigation = document.querySelector('.b_pag');
-				const clonedNavigation = navigation.cloneNode(true);
-				results.append(clonedNavigation);
+				//console.log(blurbox.innerHTML);
+				// Add placeholder for results if we've found results
+				blurbox.style.top = document.querySelector('#b_content').offsetTop + "px";
+				document.querySelector('html').appendChild(blurbox);
+
+				// Get Engine Height
+				pageHeightForBing = document.body.clientHeight;
+				console.log(pageHeightForBing);
+
+				// Set a class to make it all visible
+				document.querySelector('html').classList.add('ss--has-results', 'ss--is-bing');
+
+				console.log("got to end of bing code");
+			} else {
+				document.querySelector('html').classList.add('ss--no-results');
 			}
-
-			//console.log(blurbox.innerHTML);
-			// Add placeholder for results if we've found results
-
-			blurbox.style.top = document.querySelector('#b_content').offsetTop + "px";
-			document.querySelector('html').appendChild(blurbox);
-			// Get Engine Height
-			pageHeightForBing = document.body.clientHeight;
-			console.log(pageHeightForBing);
-
-			// Set a class to make it all visible
-			document.querySelector('html').classList.add('ss--has-results', 'ss--is-bing');
-
-			console.log("got to end of bing code");
-			//document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (pageHeightForBing - pageHeightForSimple) + ' pixels TK TK TK';
-		} else {
-			document.querySelector('html').classList.add('ss--no-results');
-		}
 		}
 		loaded = true;
 	}
@@ -195,20 +194,24 @@ function openSimpleSearch() {
 		// Get Simple Height
 		const simpleSearchHeight = viewbox.clientHeight;
 		console.log("simple height " + simpleSearchHeight);
+
 		// Cut off original results to stop the page from being super long
 		document.querySelector('#rcnt').style.height = (simpleSearchHeight + 50) + 'px';
 		document.querySelector('#rcnt').style.overflow = 'hidden';
+
 		// Get New Page Height
 		const pageHeightForSimple = document.body.clientHeight;
-		//document.querySelector('.ss-footer__title').textContent = 'TK TK TK You Saved ' + (pageHeightForGoogle - pageHeightForSimple) + ' pixels TK TK TK';
+
 		// Get Difference 
 		const pageDifference = (pageHeightForGoogle - pageHeightForSimple);
-		const footCopy = generateDescriptiveCopy(pageHeightForGoogle, pageHeightForSimple, pageDifference ); 
+		const footCopy = generateDescriptiveCopy(pageHeightForGoogle, pageHeightForSimple, pageDifference );
+
 		document.querySelector('.ss-footer__title').innerHTML = footCopy[0];
 		document.querySelector('.ss-footer__description').innerHTML = footCopy[1];
 	} else if (whereAmI.includes('bing')) {
 		document.querySelector('html').classList.remove('ss--off');
 		document.querySelector('html').classList.add('ss--on');
+
 		// Get Simple Height
 		const simpleSearchHeight = viewbox.clientHeight;
 		const footerHeight = document.querySelector('#b_footer').clientHeight;
@@ -217,9 +220,11 @@ function openSimpleSearch() {
 		// Cut off original results to stop the page from being super long
 		document.querySelector('#b_content').style.height = (simpleSearchHeight) + 'px';
 		blurbox.style.height = (simpleSearchHeight + 100 - footerHeight + footerPadding) + 'px';
+
 		// Get Simple Search Page Height
 		const pageHeightForSimple = document.body.clientHeight;
 		console.log(pageHeightForSimple);
+
 		// Get Difference 
 		const pageDifference = (pageHeightForBing - pageHeightForSimple);
 		const footCopy = generateDescriptiveCopy(pageHeightForBing, pageHeightForSimple, pageDifference ); 
@@ -269,21 +274,21 @@ function generateDescriptiveCopy( original, current, pageDifference ) {
 
 // when toggle changes
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-    for (key in changes) {
-    	if (key === 'toggle') {
-    		var toggle = changes[key]['newValue'];
-    		console.log('toggle changed: now ' + toggle);
+	for (key in changes) {
+		if (key === 'toggle') {
+			var toggle = changes[key]['newValue'];
+			console.log('toggle changed: now ' + toggle);
 
-    		if (toggle) {
-    			if (!loaded) {
-    				loadSimpleSearch();
-    			}
-    			openSimpleSearch();
-    		} else {
-    			closeSimpleSearch();
-    		}
-    	}
-    }
+			if (toggle) {
+				if (!loaded) {
+					loadSimpleSearch();
+				}
+				openSimpleSearch();
+			} else {
+				closeSimpleSearch();
+			}
+		}
+	}
 });
 
 // Add event listener for subsequent Bing searches
@@ -299,7 +304,7 @@ if (whereAmI.includes('bing')) {
 			}
 		}, 20);
 	});
-}	
+}
 
 // onStart
 onStart();
