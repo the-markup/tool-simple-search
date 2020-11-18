@@ -116,7 +116,7 @@ function loadSimpleSearch() {
 
 					if (didYouMean) {
 						const clonedDidYouMean = didYouMean.cloneNode(true);
-						results.prepend(didYouMean);
+						results.prepend(clonedDidYouMean);
 					}
 				}
 
