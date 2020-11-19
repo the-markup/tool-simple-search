@@ -116,7 +116,7 @@ function loadSimpleSearch() {
 
 					if (didYouMean) {
 						const clonedDidYouMean = didYouMean.cloneNode(true);
-						results.prepend(didYouMean);
+						results.prepend(clonedDidYouMean);
 					}
 				}
 
@@ -185,15 +185,20 @@ function loadSimpleSearch() {
 
 // when opening simple search (either automatically or via toggle)
 function openSimpleSearch() {
-	console.log('open simple search');
+	// Get Simple Height
+	const simpleSearchHeight = viewbox.clientHeight;
+
+	// Skip if there are no search results
+	if (simpleSearchHeight == 0) {
+		console.log('simple search: no results');
+		closeSimpleSearch();
+		return;
+	}
 
 	if (whereAmI.includes('google') && isActuallySearch) {
 		document.querySelector('html').classList.remove('ss--off');
 		document.querySelector('html').classList.add('ss--on');
-
-		// Get Simple Height
-		const simpleSearchHeight = viewbox.clientHeight;
-		console.log("simple height " + simpleSearchHeight);
+		console.log('simple search: height=' + simpleSearchHeight);
 
 		// Cut off original results to stop the page from being super long
 		document.querySelector('#rcnt').style.height = (simpleSearchHeight + 50) + 'px';
@@ -212,8 +217,7 @@ function openSimpleSearch() {
 		document.querySelector('html').classList.remove('ss--off');
 		document.querySelector('html').classList.add('ss--on');
 
-		// Get Simple Height
-		const simpleSearchHeight = viewbox.clientHeight;
+		// Get Footer Height
 		const footerHeight = document.querySelector('#b_footer').clientHeight;
 		const footerPadding = 12;
 
@@ -223,7 +227,7 @@ function openSimpleSearch() {
 
 		// Get Simple Search Page Height
 		const pageHeightForSimple = document.body.clientHeight;
-		console.log(pageHeightForSimple);
+		console.log('simple search: height=' + pageHeightForSimple);
 
 		// Get Difference 
 		const pageDifference = (pageHeightForBing - pageHeightForSimple);
