@@ -70,14 +70,11 @@ function onStart() {
 	chrome.storage.sync.get([key], function(result) {
 		var toggle = result[key];
 
-		if (toggle) {
-			console.log("initial load: toggle on");
+		if (toggle) {		
 			loadSimpleSearch();
-			console.log('opening simple search....');
 			openSimpleSearch();
 		} else {
-			console.log('initial load: toggle off');
-			// do nothing!
+			return;
 		}
 	});
 }
@@ -135,11 +132,7 @@ function loadSimpleSearch() {
 			const bingResults = document.querySelectorAll('li.b_algo');
 
 			if (bingResults.length > 0) {
-				console.log("has bing results");
-
-				console.log("added results");
 				bingResults.forEach(function (result, i) {
-					console.log("result " + i);
 					const resultTitle = result.querySelector('h2 > a');
 					const resultHref = resultTitle.href;
 					const resultH = resultTitle.h;
@@ -161,20 +154,15 @@ function loadSimpleSearch() {
 					const clonedNavigation = navigation.cloneNode(true);
 					results.append(clonedNavigation);
 				}
-
-				//console.log(blurbox.innerHTML);
 				// Add placeholder for results if we've found results
 				blurbox.style.top = document.querySelector('#b_content').offsetTop + "px";
 				document.querySelector('html').appendChild(blurbox);
 
 				// Get Engine Height
 				pageHeightForBing = document.body.clientHeight;
-				console.log(pageHeightForBing);
 
 				// Set a class to make it all visible
 				document.querySelector('html').classList.add('ss--has-results', 'ss--is-bing');
-
-				console.log("got to end of bing code");
 			} else {
 				document.querySelector('html').classList.add('ss--no-results');
 			}
@@ -190,7 +178,6 @@ function openSimpleSearch() {
 
 	// Skip if there are no search results
 	if (simpleSearchHeight == 0) {
-		console.log('simple search: no results');
 		closeSimpleSearch();
 		return;
 	}
@@ -198,7 +185,6 @@ function openSimpleSearch() {
 	if (whereAmI.includes('google') && isActuallySearch) {
 		document.querySelector('html').classList.remove('ss--off');
 		document.querySelector('html').classList.add('ss--on');
-		console.log('simple search: height=' + simpleSearchHeight);
 
 		// Cut off original results to stop the page from being super long
 		document.querySelector('#rcnt').style.height = (simpleSearchHeight + 50) + 'px';
@@ -227,7 +213,6 @@ function openSimpleSearch() {
 
 		// Get Simple Search Page Height
 		const pageHeightForSimple = document.body.clientHeight;
-		console.log('simple search: height=' + pageHeightForSimple);
 
 		// Get Difference 
 		const pageDifference = (pageHeightForBing - pageHeightForSimple);
@@ -239,7 +224,6 @@ function openSimpleSearch() {
 
 // when closing simple search (either thru click or toggle!)
 function closeSimpleSearch() {
-	console.log('close simple search');
 
 	document.querySelector('html').classList.remove('ss--on');
 	document.querySelector('html').classList.add('ss--off');
@@ -281,7 +265,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 	for (key in changes) {
 		if (key === 'toggle') {
 			var toggle = changes[key]['newValue'];
-			console.log('toggle changed: now ' + toggle);
 
 			if (toggle) {
 				if (!loaded) {
