@@ -60,7 +60,6 @@ whereAmI = window.location.hostname;
 
 let isActuallySearch;
 isActuallySearch = (new URLSearchParams(window.location.search).get('tbm') === null);
-
 let pageHeightForBing;
 let pageHeightForGoogle;
 
@@ -70,7 +69,7 @@ function onStart() {
 	chrome.storage.sync.get([key], function(result) {
 		var toggle = result[key];
 
-		if (toggle) {		
+		if (toggle) {	
 			loadSimpleSearch();
 			openSimpleSearch();
 		} else {
@@ -85,8 +84,7 @@ function loadSimpleSearch() {
 		document.querySelector('html').classList.add('ss--loaded');
 
 		if (whereAmI.includes('google')) {
-			const googleResults = document.querySelectorAll('div#rso > div.g div.rc');
-
+			const googleResults = document.querySelectorAll('div#rso div.g div.rc');
 			if (googleResults.length > 0) {
 				// Populate new results with those clean results
 				googleResults.forEach(function(result, i) {
