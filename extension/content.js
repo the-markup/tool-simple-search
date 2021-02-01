@@ -70,6 +70,7 @@ function onStart() {
 		var toggle = result[key];
 
 		if (toggle) {	
+			console.log("toggle on!!!!!");
 			loadSimpleSearch();
 			openSimpleSearch();
 		} else {
@@ -84,7 +85,7 @@ function loadSimpleSearch() {
 		document.querySelector('html').classList.add('ss--loaded');
 
 		if (whereAmI.includes('google')) {
-			const googleResults = document.querySelectorAll('div#rso div.g div.rc');
+			const googleResults = document.querySelectorAll('div#rso div.g div.tF2Cxc');
 			if (googleResults.length > 0) {
 				// Populate new results with those clean results
 				googleResults.forEach(function(result, i) {
