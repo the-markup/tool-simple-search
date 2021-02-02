@@ -93,7 +93,7 @@ function loadSimpleSearch() {
 					const url = linkEl.href;
 					const rel = linkEl.rel;
 					const title = result.querySelector('h3').innerHTML;
-					const desc = result.querySelector('div > div > span > span:last-of-type');
+					const desc = result.querySelector('span.aCOpRe');
 					const cite = result.querySelector('cite');
 
 					if (desc && cite) {
