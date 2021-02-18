@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "Simple Search",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "This extension highlights “ten blue link”-type search results over infoboxes and other content. Works with Bing and Google.",
   "permissions": ["storage"],
   "content_scripts": [

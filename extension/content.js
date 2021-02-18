@@ -103,10 +103,12 @@ function loadSimpleSearch() {
 					}
 				});
 
+				const g_nav_id = '[role="navigation"] #xjs';
+				const g_dym_id = '#taw > div > [role="heading"]';
 				// Get page navigation and add to the box
-				if (document.querySelector('#foot h1')) {
-					const navigation = document.querySelector('#foot');
-					const didYouMean = document.querySelector('#taw > div > div.med');
+				if (document.querySelector(g_nav_id)) {
+					const navigation = document.querySelector(g_nav_id);
+					const didYouMean = document.querySelector(g_dym_id);
 					const clonedNavigation = navigation.cloneNode(true);
 					results.append(clonedNavigation);
 
