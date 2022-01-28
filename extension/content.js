@@ -85,7 +85,7 @@ function loadSimpleSearch() {
 		document.querySelector('html').classList.add('ss--loaded');
 
 		if (whereAmI.includes('google')) {
-			const googleResults = document.querySelectorAll('div#rso div.g div.tF2Cxc');
+			const googleResults = document.querySelectorAll('div#rso div.g.tF2Cxc');
 			if (googleResults.length > 0) {
 				// Populate new results with those clean results
 				googleResults.forEach(function(result, i) {
@@ -93,7 +93,7 @@ function loadSimpleSearch() {
 					const url = linkEl.href;
 					const rel = linkEl.rel;
 					const title = result.querySelector('h3').innerHTML;
-					const desc = result.querySelector('span.aCOpRe');
+					const desc = result.querySelector('[data-content-feature="1"]');
 					const cite = result.querySelector('cite');
 
 					if (desc && cite) {
