@@ -5,7 +5,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
 });
 
 // when someone clicks, change the toggle setting
-chrome.browserAction.onClicked.addListener(function(tab) {
+chrome.action.onClicked.addListener(function(tab) {
 	// Get the current setting
 	var key = "toggle";
 	chrome.storage.sync.get([key], function(result) {
